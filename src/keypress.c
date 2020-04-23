@@ -277,6 +277,10 @@ void unicodeTap(const unsigned value)
 		ip.ki.dwFlags = KEYEVENTF_UNICODE; // KEYEVENTF_KEYUP for key release.
 
 		SendInput(1, &ip, sizeof(INPUT));
+
+		// Need to release key to avoid missing keystrokes without delay
+		ip.ki.dwFlags |= KEYEVENTF_KEYUP;
+		SendInput(1, &ip, sizeof(INPUT));
 	#endif
 }
 
